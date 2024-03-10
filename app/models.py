@@ -7,3 +7,25 @@ class User(db.Model):
 
     def __repr__(self):
         return f"User('{self.username}')"
+
+
+
+class Exercise(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    description = db.Column(db.Text, nullable=False)
+    instructions = db.Column(db.Text, nullable=False)
+    target_muscles = db.Column(db.String(100), nullable=False)
+    # Add more fields as needed
+
+
+class WorkoutPlan(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    frequency = db.Column(db.String(50), nullable=False)
+    goals = db.Column(db.Text, nullable=False)
+    session_duration = db.Column(db.Integer, nullable=False)
+    # Add more fields as needed
+
+    def __repr__(self):
+        return f"WorkoutPlan(id={self.id}, user_id={self.user_id})"
