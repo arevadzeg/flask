@@ -1,0 +1,392 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Flask API Documentation",
+    "description": "API documentation for the Flask application",
+    "version": "1.0"
+  },
+  "paths": {
+    "/register": {
+      "post": {
+        "summary": "Register User",
+        "description": "Register a new user",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "body",
+            "description": "Username of the user",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "password",
+            "in": "body",
+            "description": "Password of the user",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User registered successfully"
+          },
+          "400": {
+            "description": "Bad request - Missing username or password"
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "summary": "User Login",
+        "description": "Login with username and password",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "body",
+            "description": "Username of the user",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "password",
+            "in": "body",
+            "description": "Password of the user",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User logged in successfully"
+          },
+          "401": {
+            "description": "Unauthorized - Invalid username or password"
+          }
+        }
+      }
+    },
+    "/workout_plans": {
+      "post": {
+        "summary": "Create Workout Plan",
+        "description": "Create a new workout plan",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "body",
+            "description": "User ID",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "frequency",
+            "in": "body",
+            "description": "Frequency of workouts",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "goals",
+            "in": "body",
+            "description": "Goals of the workout plan",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "session_duration",
+            "in": "body",
+            "description": "Duration of each workout session",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Workout plan created successfully"
+          }
+        }
+      },
+      "get": {
+        "summary": "Get All Workout Plans",
+        "description": "Retrieve all workout plans",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/workout_plans/{plan_id}": {
+      "get": {
+        "summary": "Get Workout Plan by ID",
+        "description": "Retrieve a workout plan by its ID",
+        "parameters": [
+          {
+            "name": "plan_id",
+            "in": "path",
+            "description": "ID of the workout plan",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update Workout Plan",
+        "description": "Update an existing workout plan",
+        "parameters": [
+          {
+            "name": "plan_id",
+            "in": "path",
+            "description": "ID of the workout plan",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "frequency",
+            "in": "body",
+            "description": "Frequency of workouts",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "goals",
+            "in": "body",
+            "description": "Goals of the workout plan",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "session_duration",
+            "in": "body",
+            "description": "Duration of each workout session",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Workout plan updated successfully"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete Workout Plan",
+        "description": "Delete a workout plan by its ID",
+        "parameters": [
+          {
+            "name": "plan_id",
+            "in": "path",
+            "description": "ID of the workout plan",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Workout plan deleted successfully"
+          }
+        }
+      }
+    },
+    "/tracking_and_goals": {
+      "post": {
+        "summary": "Add Tracking and Goals",
+        "description": "Add tracking and goals for a user",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "body",
+            "description": "User ID",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "date",
+            "in": "body",
+            "description": "Date of tracking",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "weight",
+            "in": "body",
+            "description": "Weight tracking",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "fitness_goals",
+            "in": "body",
+            "description": "Fitness goals",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "achievements",
+            "in": "body",
+            "description": "Achievements",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Tracking and goals added successfully"
+          }
+        }
+      },
+      "get": {
+        "summary": "Get All Tracking and Goals",
+        "description": "Retrieve all tracking and goals entries",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/tracking_and_goals/{entry_id}": {
+      "get": {
+        "summary": "Get Tracking and Goals by ID",
+        "description": "Retrieve tracking and goals entry by its ID",
+        "parameters": [
+          {
+            "name": "entry_id",
+            "in": "path",
+            "description": "ID of the tracking and goals entry",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update Tracking and Goals",
+        "description": "Update an existing tracking and goals entry",
+        "parameters": [
+          {
+            "name": "entry_id",
+            "in": "path",
+            "description": "ID of the tracking and goals entry",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "date",
+            "in": "body",
+            "description": "Date of tracking",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "weight",
+            "in": "body",
+            "description": "Weight tracking",
+            "required": false,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "fitness_goals",
+            "in": "body",
+            "description": "Fitness goals",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "achievements",
+            "in": "body",
+            "description": "Achievements",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tracking and goals updated successfully"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete Tracking and Goals",
+        "description": "Delete a tracking and goals entry by its ID",
+        "parameters": [
+          {
+            "name": "entry_id",
+            "in": "path",
+            "description": "ID of the tracking and goals entry",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tracking and goals deleted successfully"
+          }
+        }
+      }
+    }
+  }
+}

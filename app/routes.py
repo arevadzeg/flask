@@ -4,6 +4,7 @@ from flask_jwt_extended import create_access_token
 from app import app, db
 from app.models import User
 from app.models import WorkoutPlan, TrackingAndGoals
+from flask_jwt_extended import jwt_required
 
 
 @app.route('/register', methods=['POST'])
@@ -96,6 +97,7 @@ def update_workout_plan(plan_id):
 
 
 @app.route('/workout_plans', methods=['GET'])
+@jwt_required()
 def get_all_workout_plans():
     workout_plans = WorkoutPlan.query.all()
     # Serialize the workout plans into JSON format
