@@ -1,9 +1,6 @@
-from flask import request, jsonify, Blueprint, request
-from werkzeug.security import generate_password_hash, check_password_hash
-from flask_jwt_extended import create_access_token
+from flask import request, jsonify, request
 from app import app, db
-from app.models.tracking_and_goals import TrackingAndGoals
-
+from app.models import TrackingAndGoals
 
 
 @app.route('/tracking_and_goals', methods=['POST'])

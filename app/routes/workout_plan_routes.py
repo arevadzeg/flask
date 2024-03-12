@@ -1,12 +1,7 @@
 
-from flask import request, jsonify, Blueprint, request
-from werkzeug.security import generate_password_hash, check_password_hash
-from flask_jwt_extended import create_access_token
+from flask import request, jsonify, request
 from app import app, db
-from app.models.user import User
-from app.models.workout_plan import WorkoutPlan
-from app.models.tracking_and_goals import TrackingAndGoals
-from app.models.exercise import Exercise
+from app.models import WorkoutPlan
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
 
@@ -28,21 +23,23 @@ def create_workout_plan():
 @app.route('/workout_plans/<int:plan_id>', methods=['GET'])
 @jwt_required()
 def get_workout_plan(plan_id):
-    workout_plan = WorkoutPlan.query.get_or_404(plan_id)
+    user_id = get_jwt_identity()
+
+    workout_plan = WorkoutPlan.query.filter_by(id=plan_id, user_id=user_id).first_or_404()
+
     return jsonify({
         'id': workout_plan.id,
         'user_id': workout_plan.user_id,
         'frequency': workout_plan.frequency,
         'goals': workout_plan.goals,
         'session_duration': workout_plan.session_duration
-        # Add more fields as needed
     })
-
 
 @app.route('/workout_plans/<int:plan_id>', methods=['PUT'])
 @jwt_required()
 def update_workout_plan(plan_id):
-    workout_plan = WorkoutPlan.query.get_or_404(plan_id)
+    user_id = get_jwt_identity()
+    workout_plan = WorkoutPlan.query.filter_by(id=plan_id, user_id=user_id).first_or_404()
     data = request.json
     # Update fields if provided in the request data
     if 'frequency' in data:
@@ -59,7 +56,9 @@ def update_workout_plan(plan_id):
 @app.route('/workout_plans', methods=['GET'])
 @jwt_required()
 def get_all_workout_plans():
-    workout_plans = WorkoutPlan.query.all()
+    user_id = get_jwt_identity()
+    workout_plans = WorkoutPlan.query.filter_by(user_id=user_id).first_or_404()
+
     # Serialize the workout plans into JSON format
     result = []
     for workout_plan in workout_plans:
@@ -77,7 +76,8 @@ def get_all_workout_plans():
 @app.route('/workout_plans/<int:plan_id>', methods=['DELETE'])
 @jwt_required()
 def delete_workout_plan(plan_id):
-    workout_plan = WorkoutPlan.query.get_or_404(plan_id)
+    user_id = get_jwt_identity()
+    workout_plan = WorkoutPlan.query.filter_by(id=plan_id, user_id=user_id).first_or_404()
     db.session.delete(workout_plan)
     db.session.commit()
     return jsonify({'message': 'Workout plan deleted successfully'}), 200
