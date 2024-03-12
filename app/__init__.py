@@ -14,8 +14,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 # Initialize SQLAlchemy
 db = SQLAlchemy(app)
 
-# Import models to ensure tables are created
-from app.models import User
 
 # Create database tables
 with app.app_context():
