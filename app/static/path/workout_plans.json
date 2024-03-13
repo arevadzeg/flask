@@ -1,0 +1,39 @@
+{
+  "post": {
+    "summary": "Create Workout Plan",
+    "tags": ["Workout Plans"],
+    "parameters": [
+      {
+        "required": true,
+        "name": "body",
+        "in": "body",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "frequency": {
+              "type": "string",
+              "default": "Daily"
+            },
+            "goals": {
+              "type": "string",
+              "default": "Lose weight"
+            },
+            "session_duration": {
+              "type": "integer",
+              "default": 60
+            }
+          },
+          "required": ["user_id", "frequency", "goals", "session_duration"]
+        }
+      }
+    ],
+    "responses": {
+      "201": {
+        "description": "Workout plan created successfully"
+      },
+      "400": {
+        "description": "Bad request - Invalid input data"
+      }
+    }
+  }
+}

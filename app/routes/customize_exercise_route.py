@@ -1,21 +1,23 @@
 
 from flask import request, jsonify, request
 from app import app, db
-from app.models.custom_exercise import CustomExercise
+from app.models import CustomExercise
 from app.models import Exercise
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from sqlalchemy.exc import IntegrityError
 
 # CREATE
-@app.route('/custom_exercises/<int:exercise_id>', methods=['POST'])
+@app.route('/custom_exercises', methods=['POST'])
 @jwt_required()
-def create_custom_exercise(exercise_id):
+def create_custom_exercise():
+    # Parse request data
+    data = request.json
+    exercise_id = data.get('exercise_id')
+
     # Check if the exercise exists
     Exercise.query.get_or_404(exercise_id)
 
 
-    # Parse request data
-    data = request.json
     user_id = get_jwt_identity()
     repetitions = data.get('repetitions')
     sets = data.get('sets')
@@ -120,7 +122,8 @@ def get_custom_exercises():
 @jwt_required()
 def delete_custom_exercise(exercise_id):
     # Check if the custom exercise exists
-    custom_exercise = CustomExercise.query.get_or_404(exercise_id)
+    user_id = get_jwt_identity()
+    custom_exercise = CustomExercise.query.filter_by(user_id=user_id,id=exercise_id).first_or_404()
 
     # Ensure that the user owns the custom exercise
     current_user_id = get_jwt_identity()

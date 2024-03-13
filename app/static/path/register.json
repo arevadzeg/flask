@@ -1,0 +1,40 @@
+{
+  "post": {
+    "summary": "Register User",
+    "description": "Register a new user",
+    "tags": ["User Authentication"],
+    "parameters": [
+      {
+        "name": "body",
+        "in": "body",
+        "description": "User object",
+        "required": true,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "username": {
+              "type": "string",
+              "default": "default_username123"
+            },
+            "password": {
+              "type": "string",
+              "default": "default_password123"
+            }
+          },
+          "required": ["username", "password"]
+        }
+      }
+    ],
+    "responses": {
+      "201": {
+        "description": "User registered successfully"
+      },
+      "400": {
+        "description": "Bad request - Missing username or password"
+      },
+      "401": {
+        "description": "Username already exists"
+      }
+    }
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "get": {
+    "summary": "Get All Custom Exercises",
+    "description": "Retrieve all custom exercises",
+    "tags": ["Custom Exercises"],
+    "responses": {
+      "200": {
+        "description": "Successful operation"
+      }
+    }
+  },
+  "post": {
+    "summary": "Create Custom Exercise",
+    "description": "Create a new custom exercise",
+    "tags": ["Custom Exercises"],
+    "parameters": [
+      {
+        "name": "body",
+        "in": "body",
+        "description": "Custom exercise details",
+        "required": true,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "repetitions": {
+              "type": "integer",
+              "default": 10
+            },
+            "sets": {
+              "type": "integer",
+              "default": 5
+            },
+            "duration": {
+              "type": "integer",
+              "default": 360000
+            },
+            "distance": {
+              "type": "number",
+              "default": 500
+            },
+            "exercise_id": {
+              "type": "number",
+              "default": 8
+            }
+          }
+        }
+      }
+    ],
+    "responses": {
+      "201": {
+        "description": "Custom exercise created successfully"
+      },
+      "400": {
+        "description": "Bad request - Invalid input data"
+      }
+    }
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "put": {
+    "summary": "Update Custom Exercise",
+    "description": "Update an existing custom exercise",
+    "tags": ["Custom Exercises"],
+    "parameters": [
+      {
+        "name": "exercise_id",
+        "in": "path",
+        "description": "ID of the custom exercise",
+        "required": true,
+        "type": "integer"
+      },
+      {
+        "name": "body",
+        "in": "body",
+        "description": "Custom exercise details",
+        "required": true,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "repetitions": {
+              "type": "integer"
+            },
+            "sets": {
+              "type": "integer"
+            },
+            "duration": {
+              "type": "integer"
+            },
+            "distance": {
+              "type": "number"
+            },
+            "exercise_id": {
+              "type": "number",
+              "default": 8
+            }
+          }
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Custom exercise updated successfully"
+      },
+      "400": {
+        "description": "Bad request - Invalid input data"
+      }
+    }
+  },
+  "delete": {
+    "summary": "Delete Custom Exercise",
+    "description": "Delete an existing custom exercise",
+    "tags": ["Custom Exercises"],
+    "parameters": [
+      {
+        "name": "exercise_id",
+        "in": "path",
+        "description": "ID of the custom exercise",
+        "required": true,
+        "type": "integer"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Custom exercise deleted successfully"
+      },
+      "400": {
+        "description": "Bad request - Invalid input data"
+      }
+    }
+  }
+}

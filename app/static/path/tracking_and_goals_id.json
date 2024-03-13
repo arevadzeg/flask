@@ -1,0 +1,134 @@
+{
+  "get": {
+    "summary": "Get Tracking and Goals by ID",
+    "operationId": "getTrackingAndGoalsById",
+    "tags": ["Tracking And Goals"],
+    "parameters": [
+      {
+        "name": "entry_id",
+        "in": "path",
+        "description": "ID of the tracking and goals entry to retrieve",
+        "required": true,
+        "schema": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful operation",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "user_id": {
+                  "type": "integer"
+                },
+                "date": {
+                  "type": "string",
+                  "format": "date"
+                },
+                "weight": {
+                  "type": "number"
+                },
+                "fitness_goals": {
+                  "type": "string"
+                },
+                "achievements": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "404": {
+        "description": "Tracking and goals entry not found"
+      }
+    }
+  },
+  "put": {
+    "summary": "Update Tracking and Goals",
+    "operationId": "updateTrackingAndGoals",
+    "tags": ["Tracking And Goals"],
+    "parameters": [
+      {
+        "name": "entry_id",
+        "in": "path",
+        "description": "ID of the tracking and goals entry to update",
+        "required": true,
+        "schema": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      {
+        "required": true,
+        "name": "body",
+        "in": "body",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "date": {
+              "type": "string",
+              "format": "date",
+              "default": "2024-03-13"
+            },
+            "weight": {
+              "type": "number",
+              "default": 70.5
+            },
+            "fitness_goals": {
+              "type": "string",
+              "default": "Run a marathon"
+            },
+            "achievements": {
+              "type": "string",
+              "default": "Completed 10-mile run"
+            }
+          },
+          "required": ["user_id", "date", "weight"]
+        }
+      }
+    ],
+
+    "responses": {
+      "200": {
+        "description": "Tracking and goals updated successfully"
+      },
+      "404": {
+        "description": "Tracking and goals entry not found"
+      }
+    }
+  },
+  "delete": {
+    "summary": "Delete Tracking and Goals",
+    "operationId": "deleteTrackingAndGoals",
+    "tags": ["Tracking And Goals"],
+    "parameters": [
+      {
+        "name": "entry_id",
+        "in": "path",
+        "description": "ID of the tracking and goals entry to delete",
+        "required": true,
+        "schema": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Tracking and goals deleted successfully"
+      },
+      "404": {
+        "description": "Tracking and goals entry not found"
+      }
+    }
+  }
+}

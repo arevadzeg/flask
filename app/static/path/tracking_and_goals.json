@@ -1,0 +1,83 @@
+{
+  "post": {
+    "summary": "Add Tracking and Goals",
+    "operationId": "addTrackingAndGoals",
+    "tags": ["Tracking And Goals"],
+    "parameters": [
+      {
+        "required": true,
+        "name": "body",
+        "in": "body",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "date": {
+              "type": "string",
+              "format": "date",
+              "default": "2024-03-13"
+            },
+            "weight": {
+              "type": "number",
+              "default": 70.5
+            },
+            "fitness_goals": {
+              "type": "string",
+              "default": "Run a marathon"
+            },
+            "achievements": {
+              "type": "string",
+              "default": "Completed 10-mile run"
+            }
+          },
+          "required": ["user_id", "date", "weight"]
+        }
+      }
+    ],
+    "responses": {
+      "201": {
+        "description": "Tracking and goals added successfully"
+      }
+    }
+  },
+  "get": {
+    "summary": "Get All Tracking and Goals",
+    "operationId": "getAllTrackingAndGoals",
+    "tags": ["Tracking And Goals"],
+    "responses": {
+      "200": {
+        "description": "Successful operation",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "user_id": {
+                    "type": "integer"
+                  },
+                  "date": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "weight": {
+                    "type": "number"
+                  },
+                  "fitness_goals": {
+                    "type": "string"
+                  },
+                  "achievements": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
